@@ -7,14 +7,20 @@
 
 import SwiftUI
 
-struct MainTabView: View {
+public struct MainTabView: View {
     @ObservedObject
     var coordinator: MainTabViewCoordinator
     
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
     
-    var body: some View {
+    public init(
+        coordinator: MainTabViewCoordinator
+    ) {
+        self.coordinator = coordinator
+    }
+    
+    public var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
                 switch coordinator.selectedTab {

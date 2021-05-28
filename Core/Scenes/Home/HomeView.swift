@@ -16,24 +16,31 @@ struct HomeView: View {
     var viewModel: HomeViewModel
     
     var body: some View {
-        VStack {
-            SectionTitle(
-                title: "Next"
-            )
-            UpcomingRace(
-                coordinator: coordinator,
-                viewModel: viewModel
-            )
-            .isRedacted(viewModel.nextRaceState == .empty)
-            SectionTitle(
-                title: "Standings"
-            )
-            DriverRanking(
-                coordinator: coordinator,
-                viewModel: viewModel
-            )
-            .isRedacted(viewModel.standingsState == .empty)
-            Spacer()
+        ZStack {
+            VStack {
+                SectionTitle(
+                    title: "Next"
+                )
+                UpcomingRace(
+                    coordinator: coordinator,
+                    viewModel: viewModel
+                )
+                .isRedacted(viewModel.nextRaceState == .empty)
+                SectionTitle(
+                    title: "Standings"
+                )
+                DriverRanking(
+                    coordinator: coordinator,
+                    viewModel: viewModel
+                )
+                .isRedacted(viewModel.standingsState == .empty)
+                Spacer()
+            }
+            if viewModel.standingsState == .empty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    .scaleEffect(2)
+            }
         }
     }
 }

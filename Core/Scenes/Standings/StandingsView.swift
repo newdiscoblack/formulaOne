@@ -16,15 +16,22 @@ struct StandingsView: View {
     var viewModel: StandingsViewModel
     
     var body: some View {
-        VStack {
-            SectionTitle(
-                title: "Standnings"
-            )
-            DriverStandingsList(
-                coordinator: coordinator,
-                viewModel: viewModel
-            )
-            .isRedacted(viewModel.standingsState == .empty)
+        ZStack {
+            VStack {
+                SectionTitle(
+                    title: "Standnings"
+                )
+                DriverStandingsList(
+                    coordinator: coordinator,
+                    viewModel: viewModel
+                )
+                .isRedacted(viewModel.standingsState == .empty)
+            }
+            if viewModel.standingsState == .empty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    .scaleEffect(2)
+            }
         }
     }
 }

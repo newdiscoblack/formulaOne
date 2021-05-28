@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MainTab {
+public enum MainTab {
     case home
     case schedule
     case standings
@@ -19,4 +19,6 @@ public class MainTabViewCoordinator: ObservableObject {
     
     @Published
     var shouldDisplayTabBar: Bool = true
+    
+    public init() { }
 }
