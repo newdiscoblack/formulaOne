@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - RaceScheduleInformation
 public struct RaceScheduleInformation: Codable {
-    let mrData: RaceScheduleInformationMRData
+    public let mrData: RaceScheduleInformationMRData
     
     enum CodingKeys: String, CodingKey {
         case mrData = "MRData"
@@ -17,14 +17,14 @@ public struct RaceScheduleInformation: Codable {
 }
 
 // MARK: - RaceScheduleInformationMRData
-struct RaceScheduleInformationMRData: Codable {
-    let xmlns: String
-    let series: String
-    let url: String
-    let limit,
+public struct RaceScheduleInformationMRData: Codable {
+    public let xmlns: String
+    public let series: String
+    public let url: String
+    public let limit,
         offset,
         total: String
-    let raceTable: RaceTable
+    public let raceTable: RaceTable
 
     enum CodingKeys: String, CodingKey {
         case xmlns,
@@ -38,9 +38,9 @@ struct RaceScheduleInformationMRData: Codable {
 }
 
 // MARK: - RaceTable
-struct RaceTable: Codable {
-    let season: String
-    let races: [Race]
+public struct RaceTable: Codable {
+    public let season: String
+    public let races: [Race]
     
     enum CodingKeys: String, CodingKey {
         case season
@@ -49,14 +49,14 @@ struct RaceTable: Codable {
 }
 
 // MARK: - Race
-struct Race: Codable {
-    let season: String
-    let round: String
-    let url: String
-    let name: String
-    let circuit: Circuit
-    let date: String
-    let time: String
+public struct Race: Codable {
+    public let season: String
+    public let round: String
+    public let url: String
+    public let name: String
+    public let circuit: Circuit
+    public let date: String
+    public let time: String
     
     enum CodingKeys: String, CodingKey {
         case season,
@@ -68,17 +68,17 @@ struct Race: Codable {
         case circuit = "Circuit"
     }
     
-    func getFullDate() -> String {
+    public func getFullDate() -> String {
         return "\(date) \(time)"
     }
 }
 
 // MARK: - Circuit
-struct Circuit: Codable {
-    let id: String
-    let url: String
-    let name: String
-    let location: Location
+public struct Circuit: Codable {
+    public let id: String
+    public let url: String
+    public let name: String
+    public let location: Location
     
     enum CodingKeys: String, CodingKey {
         case id = "circuitId"
@@ -90,10 +90,10 @@ struct Circuit: Codable {
 
 // MARK: - Location
 public struct Location: Codable {
-    let latitude: String
-    let longitude: String
-    let locality: String
-    let country: String
+    public let latitude: String
+    public let longitude: String
+    public let locality: String
+    public let country: String
     
     enum CodingKeys: String, CodingKey {
         case latitude = "lat"

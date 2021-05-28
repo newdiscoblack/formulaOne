@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - DriverStandings
 public struct DriverStandings: Codable {
-    let mrData: DriverStandingsMRData
+    public let mrData: DriverStandingsMRData
 
     enum CodingKeys: String, CodingKey {
         case mrData = "MRData"
@@ -17,14 +17,14 @@ public struct DriverStandings: Codable {
 }
 
 // MARK: - DriverStandingsMRData
-struct DriverStandingsMRData: Codable {
-    let xmlns: String
-    let series: String
-    let url: String
-    let limit,
+public struct DriverStandingsMRData: Codable {
+    public let xmlns: String
+    public let series: String
+    public let url: String
+    public let limit,
         offset,
         total: String
-    let standingsTable: StandingsTable
+    public let standingsTable: StandingsTable
 
     enum CodingKeys: String, CodingKey {
         case xmlns,
@@ -38,9 +38,9 @@ struct DriverStandingsMRData: Codable {
 }
 
 // MARK: - StandingsTable
-struct StandingsTable: Codable {
-    let season: String
-    let details: [Standings]
+public struct StandingsTable: Codable {
+    public let season: String
+    public let details: [Standings]
 
     enum CodingKeys: String, CodingKey {
         case season
@@ -49,10 +49,10 @@ struct StandingsTable: Codable {
 }
 
 // MARK: - Standings
-struct Standings: Codable {
-    let season,
+public struct Standings: Codable {
+    public let season,
         round: String
-    let drivers: [DriverStanding]
+    public let drivers: [DriverStanding]
 
     enum CodingKeys: String, CodingKey {
         case season,
@@ -64,12 +64,12 @@ struct Standings: Codable {
 // MARK: - DriverStanding
 public struct DriverStanding: Codable, Identifiable {
     public let id = UUID()
-    let position,
+    public let position,
         positionText,
         points,
         wins: String
-    let driver: Driver
-    let constructors: [Constructor]
+    public let driver: Driver
+    public let constructors: [Constructor]
 
     enum CodingKeys: String, CodingKey {
         case position,
@@ -82,10 +82,10 @@ public struct DriverStanding: Codable, Identifiable {
 }
 
 // MARK: - Constructor
-struct Constructor: Codable, Hashable {
-    let constructorID: String
-    let url: String
-    let name,
+public struct Constructor: Codable, Hashable {
+    public let constructorID: String
+    public let url: String
+    public let name,
         nationality: String
 
     enum CodingKeys: String, CodingKey {

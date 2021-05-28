@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - DriverInformation
 public struct DriverInformation: Codable {
-    let mrData: DriverInformationMRData
+    public let mrData: DriverInformationMRData
 
     enum CodingKeys: String, CodingKey {
         case mrData = "MRData"
@@ -17,14 +17,14 @@ public struct DriverInformation: Codable {
 }
 
 // MARK: - DriverInformationMRData
-struct DriverInformationMRData: Codable {
-    let xmlns: String
-    let series: String
-    let url: String
-    let limit,
+public struct DriverInformationMRData: Codable {
+    public let xmlns: String
+    public let series: String
+    public let url: String
+    public let limit,
         offset,
         total: String
-    let driverTable: DriverTable
+    public let driverTable: DriverTable
 
     enum CodingKeys: String, CodingKey {
         case xmlns,
@@ -38,9 +38,9 @@ struct DriverInformationMRData: Codable {
 }
 
 // MARK: - DriverTable
-struct DriverTable: Codable {
-    let driverID: String
-    let drivers: [Driver]
+public struct DriverTable: Codable {
+    public let driverID: String
+    public let drivers: [Driver]
 
     enum CodingKeys: String, CodingKey {
         case driverID = "driverId"
@@ -49,12 +49,12 @@ struct DriverTable: Codable {
 }
 
 // MARK: - Driver
-struct Driver: Codable, Hashable {
-    let driverID,
+public struct Driver: Codable, Hashable {
+    public let driverID,
         permanentNumber,
         code: String
-    let url: String
-    let givenName,
+    public let url: String
+    public let givenName,
         familyName,
         dateOfBirth,
         nationality: String

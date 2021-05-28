@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ApiError: Error {
+public enum ApiError: Error {
     case invalidServerResponse(URLResponse)
     case responseError(Int)
 }

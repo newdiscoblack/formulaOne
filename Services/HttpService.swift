@@ -19,6 +19,7 @@ public protocol HasHttpService {
 }
 
 public struct HttpService: HttpServing {
+    public init() { }
     public func fetchDataFrom<T: Decodable>(
         _ url: URL
     ) -> AnyPublisher<T, Error> {
