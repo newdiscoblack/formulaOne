@@ -30,3 +30,17 @@ public protocol AppDependenciesProtocol:
     HasFlagProvider,
     HasCarProvider,
     HasDateProvider { }
+
+// MARK: - Environment
+
+struct AppDependenciesKey: EnvironmentKey {
+    static var defaultValue: AppDependenciesProtocol = AppDependencies()
+}
+
+extension EnvironmentValues {
+    var appDependencies: AppDependenciesProtocol {
+        get {
+            self[AppDependenciesKey.self]
+        }
+    }
+}

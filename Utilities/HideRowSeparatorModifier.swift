@@ -34,11 +34,11 @@ struct HideRowSeparatorModifier: ViewModifier {
 }
 
 extension EdgeInsets {
-    static let defaultListRowInsets = Self(top: 0, leading: 16, bottom: 0, trailing: 16)
+    public static let defaultListRowInsets = Self(top: 0, leading: 16, bottom: 0, trailing: 16)
 }
 
 extension View {
-    func hideRowSeparator(insets: EdgeInsets = .defaultListRowInsets, background: Color = .white) -> some View {
+    public func hideRowSeparator(insets: EdgeInsets = .defaultListRowInsets, background: Color = .white) -> some View {
         modifier(HideRowSeparatorModifier(insets: insets, background: background))
     }
 }

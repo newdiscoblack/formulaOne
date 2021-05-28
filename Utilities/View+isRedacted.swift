@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    @ViewBuilder func isRedacted(_ redacted: Bool) -> some View {
+    @ViewBuilder public func isRedacted(_ redacted: Bool) -> some View {
         if redacted {
             self.redacted(reason: .placeholder)
         } else {

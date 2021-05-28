@@ -1,5 +1,5 @@
 //
-//  formula_oneApp.swift
+//  FormulaOneApp.swift
 //  formula-one
 //
 //  Created by Kacper Jagiello on 08/04/2021.
@@ -8,14 +8,14 @@
 import SwiftUI
 
 @main
-struct formula_oneApp: App {
+struct FormulaOneApp: App {
     @StateObject
-    var mainCoordinator: MainTabViewCoordinator = MainTabViewCoordinator()
+    var mainTabViewCoordinator: MainTabViewCoordinator = MainTabViewCoordinator()
     
     var body: some Scene {
         WindowGroup {
             MainTabView(
-                coordinator: mainCoordinator
+                coordinator: mainTabViewCoordinator
             )
         }
     }

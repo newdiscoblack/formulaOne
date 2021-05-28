@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Utilities
 
 struct HomeView: View {
     @ObservedObject
@@ -23,7 +24,7 @@ struct HomeView: View {
                 coordinator: coordinator,
                 viewModel: viewModel
             )
-                .isRedacted(viewModel.nextRaceState == .empty)
+            .isRedacted(viewModel.nextRaceState == .empty)
             SectionTitle(
                 title: "Standings"
             )
@@ -31,7 +32,7 @@ struct HomeView: View {
                 coordinator: coordinator,
                 viewModel: viewModel
             )
-                .isRedacted(viewModel.standingsState == .empty)
+            .isRedacted(viewModel.standingsState == .empty)
             Spacer()
         }
     }
