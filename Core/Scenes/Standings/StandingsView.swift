@@ -27,6 +27,10 @@ struct StandingsView: View {
                 )
                 .isRedacted(viewModel.standingsState == .empty)
             }
+            .background(
+                Color.init(red: 30/255, green: 30/255, blue: 30/255)
+                    .ignoresSafeArea()
+            )
             if viewModel.standingsState == .empty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .gray))
@@ -58,8 +62,14 @@ struct DriverStandingsList: View {
                     viewModel: DriverCellViewModel.populateWith(standings[driver]),
                     dependencies: viewModel.dependencies
                 )
-                    .hideRowSeparator()
+                .hideRowSeparator(
+                    insets: .defaultListRowInsets,
+                    background: Color.init(red: 30/255, green: 30/255, blue: 30/255)
+                )
             }
+        }
+        .onAppear {
+            UITableView.appearance().backgroundColor = .clear
         }
         .simultaneousGesture(
             DragGesture().onChanged { gesture in
@@ -110,10 +120,10 @@ struct StandingsDriverCell: View {
                             gradient: Gradient(
                                 colors: [
                                     .clear,
-                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.2),
                                     Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.3),
-                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.4),
-                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.5)
+                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.5),
+                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.7),
+                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.9)
                                 ]
                             ),
                             startPoint: .leading,
@@ -152,18 +162,21 @@ struct StandingsDriverCell: View {
             HStack {
                 Text(position)
                     .font(.system(size: 30.0, weight: .bold, design: .default))
+                    .foregroundColor(.white)
                     .padding(.leading, 10.0)
                 VStack {
                     Text(name)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 15.0, weight: .regular, design: .default))
+                        .foregroundColor(.white)
                     Text(surname)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 20.0, weight: .bold, design: .default))
+                        .foregroundColor(.white)
                     Text(constructor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 15.0, weight: .regular, design: .default))
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                 }
                 ZStack {
                     Image("\(surname.lowercased())_standings")

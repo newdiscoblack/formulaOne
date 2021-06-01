@@ -22,6 +22,7 @@ public protocol HasFlagProvider {
 }
 
 public struct FlagProvider: FlagProviding {
+    public init() { }
     public func nationality(_ nationality: String) -> String {
         switch nationality.lowercased() {
         case "british":

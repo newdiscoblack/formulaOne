@@ -65,7 +65,7 @@ private struct TabBarButton: View {
             .font(.system(size: 25.0))
             .foregroundColor(
                 isSelected ?
-                    .white
+                    .red
                     : .gray
             )
     }

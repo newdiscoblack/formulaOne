@@ -1,0 +1,64 @@
+name: FormulaOne
+options:
+  bundleIdPrefix:
+    com.FormulaOne
+  deploymentTarget:
+    iOS: "14.0"
+
+targets:
+  FormulaOne:
+    type: application
+    platform: iOS
+    sources: [FormulaOne]
+    dependencies:
+      - target: Core
+      - target: Services
+      - target: Utilities
+  FormulaOneTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [FormulaOneTests]
+    dependencies:
+      - target: FormulaOne
+  FormulaOneUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [FormulaOneUITests]
+    dependencies:
+      - target: FormulaOne
+  Core:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Core
+  CoreTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: CoreTests
+    dependencies:
+      - target: Core
+  Services:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Services
+  ServicesTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ServicesTests
+    dependencies:
+      - target: Services
+  Utilities:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Utilities
+  UtilitiesTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: UtilitiesTests
+    dependencies:
+      - target: Utilities

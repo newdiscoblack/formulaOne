@@ -36,6 +36,10 @@ struct HomeView: View {
                 .isRedacted(viewModel.standingsState == .empty)
                 Spacer()
             }
+            .background(
+                Color.init(red: 30/255, green: 30/255, blue: 30/255)
+                    .ignoresSafeArea()
+            )
             if viewModel.standingsState == .empty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .gray))
@@ -130,9 +134,9 @@ struct UpcomingRace: View {
                     .background(
                         LinearGradient(
                             gradient: Gradient(
-                                colors: [.clear, .black]
+                                colors: [.clear, .gray]
                             ),
-                            startPoint: .trailing,
+                            startPoint: .topTrailing,
                             endPoint: .leading
                         )
                     )
@@ -140,7 +144,6 @@ struct UpcomingRace: View {
         )
         .cornerRadius(20.0)
         .padding(.horizontal)
-        .shadow(color: .gray, radius: 7)
     }
 }
 
@@ -178,7 +181,6 @@ struct DriverRanking: View {
                         .font(.system(size: 40))
                         .foregroundColor(.white)
                         .padding(.horizontal)
-                        .shadow(color: .gray, radius: 7)
                 }
             }
         }
@@ -212,7 +214,6 @@ struct DriverCell: View {
                 .aspectRatio(contentMode: .fit)
         )
         .cornerRadius(20.0)
-        .shadow(color: .gray, radius: 7)
     }
     
     private struct Position: View {
