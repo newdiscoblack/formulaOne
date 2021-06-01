@@ -69,6 +69,10 @@ struct UpcomingRace: View {
         let raceDateString = upcomingRace?.getFullDate()
         
         VStack {
+            Spacer()
+            Circuit(
+                circuitID: upcomingRace?.circuit.id.lowercased() ?? "Unknown"
+            )
             if let raceDateString = raceDateString {
                 if let raceDate = viewModel
                     .dependencies
@@ -83,11 +87,10 @@ struct UpcomingRace: View {
                     .dateProvider
                     .print(.time, from: raceDate)
                     
-                    Text("\(dateToPrint), \(timeToPrint)")
-                        .font(.system(size: 15.0, weight: .regular))
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.horizontal)
-                        .foregroundColor(.white)
+                    RaceDate(
+                        date: dateToPrint,
+                        time: timeToPrint
+                    )
                 }
             }
             
@@ -114,8 +117,9 @@ struct UpcomingRace: View {
                         .padding(.horizontal)
                 }
             }
+            .padding(.bottom)
         }
-        .frame(maxWidth: .infinity, maxHeight: 100.0)
+        .frame(maxWidth: .infinity, maxHeight: 200.0)
         .background(
             ZStack {
                 Image("circuit_background")
@@ -145,6 +149,34 @@ struct UpcomingRace: View {
         .cornerRadius(20.0)
         .padding(.horizontal)
     }
+    
+    private struct Circuit: View {
+        let circuitID: String
+        
+        var body: some View {
+            HStack {
+                Image(circuitID)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private struct RaceDate: View {
+        let date: String
+        let time: String
+        
+        var body: some View {
+            Text("\(date), \(time)")
+                .font(.system(size: 15.0, weight: .regular))
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.horizontal)
+                .foregroundColor(.white)
+        }
+    }
 }
 
 struct DriverRanking: View {
@@ -172,7 +204,7 @@ struct DriverRanking: View {
                             .populateWith(standings[driver]),
                         dependencies: viewModel.dependencies
                     )
-                    .padding(7.0)
+                    .padding(.horizontal, 7.0)
                 }
                 Button(action: {
                     coordinator.selectedTab = .standings
@@ -182,6 +214,7 @@ struct DriverRanking: View {
                         .foregroundColor(.white)
                         .padding(.horizontal)
                 }
+                .isHidden(viewModel.standingsState == .empty)
             }
         }
         .padding(.leading, 10.0)
