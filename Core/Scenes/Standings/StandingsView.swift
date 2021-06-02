@@ -33,7 +33,7 @@ struct StandingsView: View {
             )
             if viewModel.standingsState == .empty {
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    .progressViewStyle(CircularProgressViewStyle(tint: .red))
                     .scaleEffect(2)
             }
         }
@@ -70,6 +70,7 @@ struct DriverStandingsList: View {
         }
         .onAppear {
             UITableView.appearance().backgroundColor = .clear
+            UITableView.appearance().showsVerticalScrollIndicator = false
         }
         .simultaneousGesture(
             DragGesture().onChanged { gesture in

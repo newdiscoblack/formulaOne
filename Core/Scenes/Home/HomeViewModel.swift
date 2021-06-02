@@ -39,10 +39,6 @@ class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     public init() {
-        setup()
-    }
-    
-    private func setup() {
         fetchData()
     }
     

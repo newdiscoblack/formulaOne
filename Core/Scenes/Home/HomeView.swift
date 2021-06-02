@@ -42,7 +42,7 @@ struct HomeView: View {
             )
             if viewModel.standingsState == .empty {
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    .progressViewStyle(CircularProgressViewStyle(tint: .red))
                     .scaleEffect(2)
             }
         }
@@ -65,13 +65,14 @@ struct UpcomingRace: View {
                 upcomingRace?.circuit.location.country ?? "Unknown"
             )
         let upcomingRaceName = upcomingRace?.name ?? "Unknown"
-        let roundNumber = upcomingRace?.round
+        let roundNumber = upcomingRace?.round ?? "0"
         let raceDateString = upcomingRace?.getFullDate()
+        let circuitID = upcomingRace?.circuit.id.lowercased() ?? "Unknown"
         
         VStack {
             Spacer()
             Circuit(
-                circuitID: upcomingRace?.circuit.id.lowercased() ?? "Unknown"
+                id: circuitID
             )
             if let raceDateString = raceDateString {
                 if let raceDate = viewModel
@@ -93,36 +94,17 @@ struct UpcomingRace: View {
                     )
                 }
             }
-            
-            HStack {
-                Text("Round \(Image(systemName: "\(roundNumber ?? "0").circle"))")
-                    .font(.system(size: 20.0, weight: .semibold))
-                    .padding(.horizontal)
-                    .foregroundColor(.white)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-            HStack {
-                Text("\(upcomingRaceName) \(circuitLocationFlag)")
-                    .font(.system(size: 20.0, weight: .semibold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    .foregroundColor(.white)
-                Button(action: {
-                    coordinator.selectedTab = .schedule
-                }) {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 30.0, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                }
-            }
-            .padding(.bottom)
+            RoundNumber(roundNumber)
+            RaceName(
+                upcomingRaceName,
+                locationFlag: circuitLocationFlag,
+                coordinator: coordinator
+            )
         }
         .frame(maxWidth: .infinity, maxHeight: 200.0)
         .background(
             ZStack {
-                Image("circuit_background")
+                Image("\(circuitID)_background")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                 Rectangle()
@@ -153,6 +135,12 @@ struct UpcomingRace: View {
     private struct Circuit: View {
         let circuitID: String
         
+        init(
+            id: String
+        ) {
+            self.circuitID = id
+        }
+        
         var body: some View {
             HStack {
                 Image(circuitID)
@@ -175,6 +163,63 @@ struct UpcomingRace: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal)
                 .foregroundColor(.white)
+        }
+    }
+    
+    private struct RoundNumber: View {
+        let roundNumber: String
+        
+        init(
+            _ roundNumber: String
+        ) {
+            self.roundNumber = roundNumber
+        }
+        
+        var body: some View {
+            HStack {
+                Text("Round \(Image(systemName: "\(roundNumber).circle"))")
+                    .font(.system(size: 20.0, weight: .semibold))
+                    .padding(.horizontal)
+                    .foregroundColor(.white)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
+    private struct RaceName: View {
+        @ObservedObject
+        var coordinator: MainTabViewCoordinator
+        
+        let raceName: String
+        let locationFlag: String
+        
+        init(
+            _ raceName: String,
+            locationFlag: String,
+            coordinator: MainTabViewCoordinator
+        ) {
+            self.raceName = raceName
+            self.locationFlag = locationFlag
+            self.coordinator = coordinator
+        }
+        
+        var body: some View {
+            HStack {
+                Text("\(raceName) \(locationFlag)")
+                    .font(.system(size: 20.0, weight: .semibold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .foregroundColor(.white)
+                Button(action: {
+                    coordinator.selectedTab = .schedule
+                }) {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 30.0, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                }
+            }
+            .padding(.bottom)
         }
     }
 }

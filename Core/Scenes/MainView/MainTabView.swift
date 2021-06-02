@@ -30,7 +30,10 @@ public struct MainTabView: View {
                         viewModel: HomeViewModel()
                     )
                 case MainTab.schedule:
-                    ScheduleView()
+                    ScheduleSegmentedView(
+                        coordinator: coordinator,
+                        viewModel: ScheduleSegmentedViewModel()
+                    )
                 case MainTab.standings:
                     StandingsView(
                         coordinator: coordinator,
