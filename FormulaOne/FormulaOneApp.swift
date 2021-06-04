@@ -15,9 +15,12 @@ struct FormulaOneApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainTabView(
-                coordinator: mainTabViewCoordinator
-            )
+            ZStack {
+                MainTabView(
+                    coordinator: mainTabViewCoordinator
+                )
+                LaunchScreen()
+            } 
         }
     }
 }
