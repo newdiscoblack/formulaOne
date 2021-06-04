@@ -13,6 +13,7 @@ class StandingsViewModel: ObservableObject {
     enum State {
         case empty
         case loaded
+        case error
     }
     
     @Published
@@ -48,7 +49,7 @@ class StandingsViewModel: ObservableObject {
             .sink { [weak self] (completion) in
                 switch completion {
                 case .failure(let error):
-                    self?.standingsState = .empty
+                    self?.standingsState = .error
                     print(error)
                     return
                 case .finished:

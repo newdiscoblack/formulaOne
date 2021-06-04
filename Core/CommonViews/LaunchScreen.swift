@@ -8,11 +8,14 @@
 import SwiftUI
 
 public struct LaunchScreen: View {
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+    
     @State
     var shouldAnimate: Bool = false
     
     @State
-    var shouldDissappear: Bool = false
+    var shouldDisappear: Bool = false
     
     public init() { }
     
@@ -29,22 +32,30 @@ public struct LaunchScreen: View {
                     width: shouldAnimate ? nil : 120,
                     height: shouldAnimate ? nil : 30
                 )
-                .scaleEffect(shouldAnimate ? 5 : 1)
+                .scaleEffect(shouldAnimate ? 4 : 1)
                 .frame(width: UIScreen.main.bounds.width)
         }
         .ignoresSafeArea(.all, edges: .all)
         .onAppear { transitionAnimation() }
-        .opacity(shouldDissappear ? 0 : 1)
+        .opacity(shouldDisappear ? 0 : 1)
+        .onDisappear {
+            print("LaunchScreen disappeared")
+        }
     }
     
     private func transitionAnimation() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            withAnimation(Animation.easeOut(duration: 0.6)) {
+            withAnimation(Animation.easeOut(duration: 0.4)) {
                 shouldAnimate.toggle()
             }
-            withAnimation(Animation.easeOut(duration: 0.4)) {
-                shouldDissappear.toggle()
+            withAnimation(Animation.easeOut(duration: 0.3)) {
+                shouldDisappear.toggle()
+                removeFromStack()
             }
         }
+    }
+    
+    private func removeFromStack() {
+        self.presentationMode.wrappedValue.dismiss()
     }
 }

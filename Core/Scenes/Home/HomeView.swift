@@ -25,7 +25,10 @@ struct HomeView: View {
                     coordinator: coordinator,
                     viewModel: viewModel
                 )
-                .isRedacted(viewModel.nextRaceState == .empty)
+                .isRedacted(
+                    viewModel.nextRaceState == .empty
+                        || viewModel.nextRaceState == .error
+                )
                 SectionTitle(
                     title: "Standings"
                 )
@@ -33,7 +36,9 @@ struct HomeView: View {
                     coordinator: coordinator,
                     viewModel: viewModel
                 )
-                .isRedacted(viewModel.standingsState == .empty)
+                .isRedacted(
+                    viewModel.standingsState == .empty
+                )
                 Spacer()
             }
             .background(
@@ -259,7 +264,10 @@ struct DriverRanking: View {
                         .foregroundColor(.white)
                         .padding(.horizontal)
                 }
-                .isHidden(viewModel.standingsState == .empty)
+                .isHidden(
+                    viewModel.standingsState == .empty
+                    || viewModel.standingsState == .error
+                )
             }
         }
         .padding(.leading, 10.0)

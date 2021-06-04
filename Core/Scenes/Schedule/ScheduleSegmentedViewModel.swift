@@ -13,6 +13,7 @@ class ScheduleSegmentedViewModel: ObservableObject {
     enum State {
         case empty
         case loaded
+        case error
     }
     
     @Published
@@ -47,7 +48,7 @@ class ScheduleSegmentedViewModel: ObservableObject {
             .sink { [weak self] (completion) in
                 switch completion {
                 case .failure(let error):
-                    self?.scheduleState = .empty
+                    self?.scheduleState = .error
                     print(error)
                     return
                 case .finished:

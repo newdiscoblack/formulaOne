@@ -25,7 +25,10 @@ struct StandingsView: View {
                     coordinator: coordinator,
                     viewModel: viewModel
                 )
-                .isRedacted(viewModel.standingsState == .empty)
+                .isRedacted(
+                    viewModel.standingsState == .empty
+                        || viewModel.standingsState == .error
+                )
             }
             .background(
                 Color.init(red: 30/255, green: 30/255, blue: 30/255)

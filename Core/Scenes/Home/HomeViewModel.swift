@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     enum State {
         case empty
         case loaded
+        case error
     }
     
     @Published
@@ -57,7 +58,7 @@ class HomeViewModel: ObservableObject {
             .sink { [weak self] (completion) in
                 switch completion {
                 case .failure(let error):
-                    self?.nextRaceState = .empty
+                    self?.nextRaceState = .error
                     print(error)
                     return
                 case .finished:
@@ -81,7 +82,7 @@ class HomeViewModel: ObservableObject {
             .sink { [weak self] (completion) in
                 switch completion {
                 case .failure(let error):
-                    self?.standingsState = .empty
+                    self?.standingsState = .error
                     print(error)
                     return
                 case .finished:
