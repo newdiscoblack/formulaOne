@@ -39,6 +39,15 @@ struct TabBar: View {
                     isSelected: coordinator.selectedTab == .standings
                 )
             }
+            Spacer()
+            Button(action: {
+                coordinator.selectedTab = .settings
+            }) {
+                TabBarButton(
+                    image: "gearshape",
+                    isSelected: coordinator.selectedTab == .settings
+                )
+            }
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 30)

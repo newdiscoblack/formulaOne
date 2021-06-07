@@ -22,7 +22,7 @@ public struct LaunchScreen: View {
     public var body: some View {
         ZStack {
             Color("launchScreenBackground")
-            Image("launchScreenLogo")
+            Image("regularLogo")
                 .resizable()
                 .renderingMode(.original)
                 .aspectRatio(

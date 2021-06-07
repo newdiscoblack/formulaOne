@@ -10,6 +10,8 @@ import SwiftUI
 import Foundation
 
 public struct AppDependencies: AppDependenciesProtocol {
+    public var firebaseService: FirebaseServing
+    public var firebaseAuthorizer: FirebaseAuthorizing
     public var httpService: HttpServing
     public var apiResources: ApiResources
     public var flagProvider: FlagProviding
@@ -17,6 +19,8 @@ public struct AppDependencies: AppDependenciesProtocol {
     public var dateProvider: DateProviding
     
     public init() {
+        self.firebaseService = FirebaseService()
+        self.firebaseAuthorizer = FirebaseAuthorizer()
         self.httpService = HttpService()
         self.apiResources = AppApiResources()
         self.flagProvider = FlagProvider()
@@ -26,6 +30,8 @@ public struct AppDependencies: AppDependenciesProtocol {
 }
 
 public protocol AppDependenciesProtocol:
+    HasFirebaseService,
+    HasFirebaseAuthorizer,
     HasHttpService,
     HasApiResources,
     HasFlagProvider,

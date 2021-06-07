@@ -30,10 +30,8 @@ struct StandingsView: View {
                         || viewModel.standingsState == .error
                 )
             }
-            .background(
-                Color.init(red: 30/255, green: 30/255, blue: 30/255)
-                    .ignoresSafeArea()
-            )
+            .modifier(DefaultViewStyleModifier())
+            
             if viewModel.standingsState == .empty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .red))

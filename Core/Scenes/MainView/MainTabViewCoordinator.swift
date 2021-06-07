@@ -11,6 +11,7 @@ public enum MainTab {
     case home
     case schedule
     case standings
+    case settings
 }
 
 public class MainTabViewCoordinator: ObservableObject {

@@ -39,6 +39,8 @@ public struct MainTabView: View {
                         coordinator: coordinator,
                         viewModel: StandingsViewModel()
                     )
+                case MainTab.settings:
+                    SettingsView()
                 }
                 Spacer()
                 TabBar(coordinator: coordinator)

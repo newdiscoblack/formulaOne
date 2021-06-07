@@ -61,10 +61,8 @@ struct ScheduleSegmentedView: View {
             .onAppear {
                 UISegmentedControl.appearance().backgroundColor = .gray
             }
-            .background(
-                Color.init(red: 30/255, green: 30/255, blue: 30/255)
-                    .ignoresSafeArea()
-            )
+            .modifier(DefaultViewStyleModifier())
+            
             if viewModel.scheduleState == .empty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .red))
