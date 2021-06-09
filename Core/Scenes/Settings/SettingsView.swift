@@ -9,21 +9,30 @@ import SwiftUI
 import Utilities
 
 struct SettingsView: View {
+    @ObservedObject
+    var viewModel: SettingsViewModel
+    
     var body: some View {
         VStack {
             SectionTitle(
                 title: "Settings"
             )
-            Spacer()
-            VStack {
-                Image("regularLogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                Image("tvLogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+            Button(action: {
+                viewModel.logOut()
+            }) {
+                Text("Log out")
+                    .foregroundColor(.white)
             }
             Spacer()
+//            VStack {
+//                Image("regularLogo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                Image("tvLogo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//            }
+//            Spacer()
         }
         .modifier(DefaultViewStyleModifier())
     }
@@ -32,7 +41,11 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsView_PreviewContainer: View {
     var body: some View {
-        SettingsView()
+        SettingsView(
+            viewModel: SettingsViewModel(
+                mainAppCoordinator: MainAppCoordinator()
+            )
+        )
     }
 }
 

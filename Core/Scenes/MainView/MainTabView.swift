@@ -8,46 +8,54 @@
 import SwiftUI
 
 public struct MainTabView: View {
-    @ObservedObject
-    var coordinator: MainTabViewCoordinator
-    
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
     
+    @ObservedObject
+    private var viewModel: MainTabViewModel
+    
     public init(
-        coordinator: MainTabViewCoordinator
+        viewModel: MainTabViewModel
     ) {
-        self.coordinator = coordinator
+        self.viewModel = viewModel
     }
     
     public var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
-                switch coordinator.selectedTab {
+                switch viewModel.mainTabViewCoordinator.selectedTab {
                 case MainTab.home:
                     HomeView(
-                        coordinator: coordinator,
+                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
                         viewModel: HomeViewModel()
                     )
                 case MainTab.schedule:
                     ScheduleSegmentedView(
-                        coordinator: coordinator,
+                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
                         viewModel: ScheduleSegmentedViewModel()
                     )
                 case MainTab.standings:
                     StandingsView(
-                        coordinator: coordinator,
+                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
                         viewModel: StandingsViewModel()
                     )
                 case MainTab.settings:
-                    SettingsView()
+                    SettingsView(
+                        viewModel: SettingsViewModel(
+                            mainAppCoordinator: viewModel.mainAppCoordinator
+                        )
+                    )
                 }
                 Spacer()
-                TabBar(coordinator: coordinator)
+                TabBar(coordinator: viewModel.mainTabViewCoordinator)
                     .alignmentGuide(.bottom) { dimension in
                         dimension[.bottom]
                     }
-                    .isHidden(!coordinator.shouldDisplayTabBar)
+                    .isHidden(
+                        !viewModel
+                            .mainTabViewCoordinator
+                            .shouldDisplayTabBar
+                    )
             }
         }
         .background(Color.clear)
@@ -58,7 +66,10 @@ public struct MainTabView: View {
 struct HomeTabView_PreviewContainer: View {
     var body: some View {
         MainTabView(
-            coordinator: MainTabViewCoordinator()
+            viewModel: MainTabViewModel(
+                mainAppCoordinator: MainAppCoordinator(),
+                mainTabViewCoordinator: MainTabViewCoordinator()
+            )
         )
     }
 }

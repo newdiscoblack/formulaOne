@@ -12,6 +12,7 @@ import Foundation
 public struct AppDependencies: AppDependenciesProtocol {
     public var firebaseService: FirebaseServing
     public var firebaseAuthorizer: FirebaseAuthorizing
+    public var userProvider: UserProviding
     public var httpService: HttpServing
     public var apiResources: ApiResources
     public var flagProvider: FlagProviding
@@ -21,6 +22,7 @@ public struct AppDependencies: AppDependenciesProtocol {
     public init() {
         self.firebaseService = FirebaseService()
         self.firebaseAuthorizer = FirebaseAuthorizer()
+        self.userProvider = UserProvider()
         self.httpService = HttpService()
         self.apiResources = AppApiResources()
         self.flagProvider = FlagProvider()
@@ -32,6 +34,7 @@ public struct AppDependencies: AppDependenciesProtocol {
 public protocol AppDependenciesProtocol:
     HasFirebaseService,
     HasFirebaseAuthorizer,
+    HasUserProvider,
     HasHttpService,
     HasApiResources,
     HasFlagProvider,

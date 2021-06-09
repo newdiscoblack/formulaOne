@@ -20,7 +20,7 @@ struct ScheduleSegmentedView: View {
     private var selectedSchedule: ScheduleType = .upcoming
     
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @StateObject
     var viewModel: ScheduleSegmentedViewModel
@@ -44,13 +44,13 @@ struct ScheduleSegmentedView: View {
                 switch selectedSchedule {
                 case .past:
                     RaceSchedule(
-                        coordinator: coordinator,
+                        mainTabViewCoordinator: mainTabViewCoordinator,
                         dateProvider: viewModel.dependencies.dateProvider,
                         schedule: viewModel.pastSchedule ?? []
                     )
                 case .upcoming:
                     RaceSchedule(
-                        coordinator: coordinator,
+                        mainTabViewCoordinator: mainTabViewCoordinator,
                         dateProvider: viewModel.dependencies.dateProvider,
                         schedule: viewModel.upcomingSchedule ?? []
                     )
@@ -74,7 +74,7 @@ struct ScheduleSegmentedView: View {
 
 struct RaceSchedule: View {
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @State
     var dateProvider: DateProviding
@@ -111,9 +111,9 @@ struct RaceSchedule: View {
         .simultaneousGesture(
             DragGesture().onChanged { gesture in
                 if gesture.translation.height > 0 {
-                    coordinator.shouldDisplayTabBar = true
+                    mainTabViewCoordinator.shouldDisplayTabBar = true
                   } else {
-                    coordinator.shouldDisplayTabBar = false
+                    mainTabViewCoordinator.shouldDisplayTabBar = false
                   }
             }
         )
@@ -209,7 +209,7 @@ struct RaceSchedule: View {
 struct ScheduleView_PreviewContainer: View {
     var body: some View {
         ScheduleSegmentedView(
-            coordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator(),
             viewModel: ScheduleSegmentedViewModel()
         )
     }

@@ -13,13 +13,20 @@ struct FormulaOneApp: App {
     @StateObject
     var mainTabViewCoordinator: MainTabViewCoordinator = MainTabViewCoordinator()
     
+    @StateObject
+    var mainAppCoordinator: MainAppCoordinator = MainAppCoordinator()
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
-                MainTabView(
-                    coordinator: mainTabViewCoordinator
+                OnboardingView(
+                    mainAppCoordinator: mainAppCoordinator,
+                    mainTabViewCoordinator: mainTabViewCoordinator
                 )
-                LaunchScreen()
+//                MainTabView(
+//                    coordinator: mainTabViewCoordinator
+//                )
+//                LaunchScreen()
             } 
         }
     }

@@ -10,7 +10,7 @@ import Utilities
 
 struct StandingsView: View {
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @StateObject
     var viewModel: StandingsViewModel
@@ -22,7 +22,7 @@ struct StandingsView: View {
                     title: "Standnings"
                 )
                 DriverStandingsList(
-                    coordinator: coordinator,
+                    coordinator: mainTabViewCoordinator,
                     viewModel: viewModel
                 )
                 .isRedacted(
@@ -196,7 +196,7 @@ struct StandingsDriverCell: View {
 struct StandingsView_PreviewContainer: View {
     var body: some View {
         StandingsView(
-            coordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator(),
             viewModel: StandingsViewModel()
         )
     }

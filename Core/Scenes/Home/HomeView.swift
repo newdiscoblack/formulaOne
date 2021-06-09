@@ -10,7 +10,7 @@ import Utilities
 
 struct HomeView: View {
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @StateObject
     var viewModel: HomeViewModel
@@ -22,7 +22,7 @@ struct HomeView: View {
                     title: "Next"
                 )
                 UpcomingRace(
-                    coordinator: coordinator,
+                    mainTabViewCoordinator: mainTabViewCoordinator,
                     viewModel: viewModel
                 )
                 .isRedacted(
@@ -33,7 +33,7 @@ struct HomeView: View {
                     title: "Standings"
                 )
                 DriverRanking(
-                    coordinator: coordinator,
+                    mainTabViewCoordinator: mainTabViewCoordinator,
                     viewModel: viewModel
                 )
                 .isRedacted(
@@ -54,7 +54,7 @@ struct HomeView: View {
 
 struct UpcomingRace: View {
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @ObservedObject
     var viewModel: HomeViewModel
@@ -101,7 +101,7 @@ struct UpcomingRace: View {
             RaceName(
                 upcomingRaceName,
                 locationFlag: circuitLocationFlag,
-                coordinator: coordinator
+                mainTabViewCoordinator: mainTabViewCoordinator
             )
         }
         .frame(maxWidth: .infinity, maxHeight: 200.0)
@@ -191,7 +191,7 @@ struct UpcomingRace: View {
     
     private struct RaceName: View {
         @ObservedObject
-        var coordinator: MainTabViewCoordinator
+        var mainTabViewCoordinator: MainTabViewCoordinator
         
         let raceName: String
         let locationFlag: String
@@ -199,11 +199,11 @@ struct UpcomingRace: View {
         init(
             _ raceName: String,
             locationFlag: String,
-            coordinator: MainTabViewCoordinator
+            mainTabViewCoordinator: MainTabViewCoordinator
         ) {
             self.raceName = raceName
             self.locationFlag = locationFlag
-            self.coordinator = coordinator
+            self.mainTabViewCoordinator = mainTabViewCoordinator
         }
         
         var body: some View {
@@ -214,7 +214,7 @@ struct UpcomingRace: View {
                     .padding(.horizontal)
                     .foregroundColor(.white)
                 Button(action: {
-                    coordinator.selectedTab = .schedule
+                    mainTabViewCoordinator.selectedTab = .schedule
                 }) {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 30.0, weight: .semibold))
@@ -229,7 +229,7 @@ struct UpcomingRace: View {
 
 struct DriverRanking: View {
     @ObservedObject
-    var coordinator: MainTabViewCoordinator
+    var mainTabViewCoordinator: MainTabViewCoordinator
     
     @ObservedObject
     var viewModel: HomeViewModel
@@ -255,7 +255,7 @@ struct DriverRanking: View {
                     .padding(.horizontal, 7.0)
                 }
                 Button(action: {
-                    coordinator.selectedTab = .standings
+                    mainTabViewCoordinator.selectedTab = .standings
                 }) {
                     Image(systemName: "arrow.right.circle")
                         .font(.system(size: 40))
@@ -371,7 +371,7 @@ struct DriverCell: View {
 struct CurrentSeasonView_PreviewContainer: View {
     var body: some View {
         HomeView(
-            coordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator(),
             viewModel: HomeViewModel()
         )
     }

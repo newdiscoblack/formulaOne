@@ -9,11 +9,11 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-public struct User {
-    let username: String
-    let emailAdress: String
-    let password: String
-}
+//public struct User {
+//    let username: String
+//    let emailAdress: String
+//    let password: String
+//}
 
 public protocol HasFirebaseAuthorizer {
     var firebaseAuthorizer: FirebaseAuthorizing { get }
@@ -27,33 +27,42 @@ public class FirebaseAuthorizer: FirebaseAuthorizing {
     }
     
     public func createUser(_ user: User) {
-        Auth.auth().createUser(
-            withEmail: user.emailAdress,
-            password: user.password
-        ) { [weak self] result, error in
-            if error != nil {
-                print("Error:", error?.localizedDescription)
-            }
-            guard let result = result else { return }
-            self?.addUserToTheDatabase(
-                id: result.user.uid,
-                user: user
-            )
-        }
+        print("createUser")
     }
     
-    private func addUserToTheDatabase(id: String, user: User) {
-        database.collection("users").addDocument(
-            data: [
-                "email_adress": user.emailAdress,
-                "username": user.username,
-                "password": user.password,
-                "uid": id
-            ]
-        ) { error in
-            print("Error:", error?.localizedDescription)
-        }
-    }
+//    public func createUser(
+//        _ user: User
+//    ) {
+//        Auth.auth().createUser(
+//            withEmail: user.emailAdress,
+//            password: user.password
+//        ) { [weak self] result, error in
+//            if error != nil {
+//                print("Error:", error?.localizedDescription)
+//            }
+//            guard let result = result else { return }
+//            self?.addUserToTheDatabase(
+//                id: result.user.uid,
+//                user: user
+//            )
+//        }
+//    }
+//
+//    private func addUserToTheDatabase(
+//        id: String,
+//        user: User
+//    ) {
+//        database.collection("users").addDocument(
+//            data: [
+//                "email_adress": user.emailAdress,
+//                "username": user.username,
+//                "password": user.password,
+//                "uid": id
+//            ]
+//        ) { error in
+//            print("Error:", error?.localizedDescription)
+//        }
+//    }
     
     // MARK: - TODO
     public func signIn() {
