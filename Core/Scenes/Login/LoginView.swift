@@ -11,19 +11,14 @@ public enum LoginRoute {
     case signIn
 }
 
-struct LoginView<Destination: View>: View {
+struct LoginView: View {
     @StateObject
     var viewModel: LoginViewModel
     
-    @State
-    var onRoute: (LoginRoute) -> Destination
-    
     init(
-        viewModel: LoginViewModel,
-        @ViewBuilder onRoute: @escaping (LoginRoute) -> Destination
+        viewModel: LoginViewModel
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        _onRoute = State(wrappedValue: onRoute)
     }
     
     var body: some View {
@@ -69,9 +64,9 @@ struct LoginView<Destination: View>: View {
                     HStack {
                         Text("Don't have an account?")
                             .foregroundColor(.white)
-                        NavigationLink(
-                            destination: onRoute(.signIn)
-                        ) {
+                        Button(action: {
+                            viewModel.signIn()
+                        }) {
                             Text("Sign in")
                                 .foregroundColor(.white)
                                 .bold()
@@ -81,6 +76,7 @@ struct LoginView<Destination: View>: View {
                 .padding(.bottom, 60)
             }
             .ignoresSafeArea(.all, edges: .all)
+            .handleNavigation(viewModel.navigationPublisher)
         }
     }
 }
@@ -138,8 +134,7 @@ struct LoginView_Previews: PreviewProvider {
         LoginView(
             viewModel: LoginViewModel(
                 coordinator: RootViewCoordinator()
-            ),
-            onRoute: { _ in }
+            )
         )
     }
 }

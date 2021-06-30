@@ -78,6 +78,10 @@
 		E78500B52670A75300E497FA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78500B42670A75300E497FA /* SettingsViewModel.swift */; };
 		E78933CE2667A0E100941201 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78933CD2667A0E100941201 /* RoundedCorners.swift */; };
 		E7AADC58266A5B0000F8611C /* DefaultViewStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AADC57266A5B0000F8611C /* DefaultViewStyleModifier.swift */; };
+		E7E2AF1A268C737800FC69C5 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E2AF19268C737800FC69C5 /* Navigation.swift */; };
+		E7E2AF1C268C795600FC69C5 /* NavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E2AF1B268C795600FC69C5 /* NavigationHandler.swift */; };
+		E7E2AF1E268C7C8E00FC69C5 /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E2AF1D268C7C8E00FC69C5 /* ViewBuilder.swift */; };
+		E7E2AF20268C822E00FC69C5 /* View+handleNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E2AF1F268C822E00FC69C5 /* View+handleNavigation.swift */; };
 		E7E838DA266A36E40056A971 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E838D9266A36E40056A971 /* LaunchScreen.swift */; };
 		E7E838DD266A57190056A971 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E838DC266A57190056A971 /* SettingsView.swift */; };
 		E8FFF942AA36751E1410186A /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BFDF8DB6CCC46219F40BA4 /* SectionTitle.swift */; };
@@ -278,6 +282,10 @@
 		E78500B42670A75300E497FA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		E78933CD2667A0E100941201 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		E7AADC57266A5B0000F8611C /* DefaultViewStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewStyleModifier.swift; sourceTree = "<group>"; };
+		E7E2AF19268C737800FC69C5 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		E7E2AF1B268C795600FC69C5 /* NavigationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHandler.swift; sourceTree = "<group>"; };
+		E7E2AF1D268C7C8E00FC69C5 /* ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
+		E7E2AF1F268C822E00FC69C5 /* View+handleNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+handleNavigation.swift"; sourceTree = "<group>"; };
 		E7E838D9266A36E40056A971 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		E7E838DC266A57190056A971 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EA391F4C13C0DB7E739A0EE7 /* CarProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarProvider.swift; sourceTree = "<group>"; };
@@ -467,6 +475,7 @@
 				0C8F764F5B05EEA73140AB48 /* Dependencies */,
 				6354406498F1C1A2A0B30277 /* Scenes */,
 				B3C36D027A3CCBB4FDA641D8 /* ViewModels */,
+				E7E2AF18268C735700FC69C5 /* Navigation */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -626,6 +635,17 @@
 				E7399FAF266FA3E0002A5D67 /* RootViewCoordinator.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		E7E2AF18268C735700FC69C5 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E7E2AF19268C737800FC69C5 /* Navigation.swift */,
+				E7E2AF1B268C795600FC69C5 /* NavigationHandler.swift */,
+				E7E2AF1D268C7C8E00FC69C5 /* ViewBuilder.swift */,
+				E7E2AF1F268C822E00FC69C5 /* View+handleNavigation.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		E7E838DB266A57040056A971 /* Settings */ = {
@@ -948,6 +968,7 @@
 			files = (
 				2B06B0405248BC80F2EDBD13 /* AppDependencies.swift in Sources */,
 				E78500B52670A75300E497FA /* SettingsViewModel.swift in Sources */,
+				E7E2AF20268C822E00FC69C5 /* View+handleNavigation.swift in Sources */,
 				96ED6C07CF95175518EAE437 /* CarProvider.swift in Sources */,
 				34DFBF7615ADE10DE5549ECE /* DateFormatter.swift in Sources */,
 				68C834BA6B818D77016E89C9 /* DriverCellViewModel.swift in Sources */,
@@ -961,7 +982,10 @@
 				A25EB578E07D90609A2E23AB /* MainTabViewCoordinator.swift in Sources */,
 				5FC682D3325CFDCED1BBE134 /* ScheduleSegmentedView.swift in Sources */,
 				E7399FAB266F92D9002A5D67 /* RootView.swift in Sources */,
+				E7E2AF1C268C795600FC69C5 /* NavigationHandler.swift in Sources */,
+				E7E2AF1E268C7C8E00FC69C5 /* ViewBuilder.swift in Sources */,
 				048FAED73839D25ED8BFD2E4 /* ScheduleSegmentedViewModel.swift in Sources */,
+				E7E2AF1A268C737800FC69C5 /* Navigation.swift in Sources */,
 				E8FFF942AA36751E1410186A /* SectionTitle.swift in Sources */,
 				95E4CD10EDC90C810E92E0BF /* StandingsView.swift in Sources */,
 				E7399FAD266F93E9002A5D67 /* LoginView.swift in Sources */,

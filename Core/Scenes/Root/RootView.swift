@@ -34,12 +34,7 @@ public struct RootView: View {
                     LoginView(
                         viewModel: LoginViewModel(
                             coordinator: rootViewCoordinator
-                        ), onRoute: { route in
-                            switch route {
-                            case .signIn:
-                                Text("Sign in view.")
-                            }
-                        }
+                        )
                     )
                 case .mainTabView:
                     MainTabView(

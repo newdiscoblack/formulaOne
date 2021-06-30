@@ -9,18 +9,30 @@ import Combine
 import Services
 import SwiftUI
 
-class LoginViewModel: ObservableObject {
+public enum LoginDestination: NavigationDestination {
+    case signIn
+}
+
+class LoginViewModel: ObservableObject, Navigating {
     enum State {
         case idle
         case login
         case loggedIn
     }
-    
+
     @ObservedObject
     var coordinator: RootViewCoordinator
     
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
+    
+    private let navigationSubject = PassthroughSubject<NavigationDirection, Never>()
+    
+    var navigationPublisher: AnyPublisher<NavigationDirection, Never> {
+        navigationSubject
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -58,5 +70,14 @@ class LoginViewModel: ObservableObject {
                 self?.coordinator.selectedScreen = .mainTabView
             }
             .store(in: &cancellables)
+    }
+    
+    public func signIn() {
+        navigationSubject.send(
+            .navigate(
+                to: LoginDestination.signIn,
+                style: .push
+            )
+        )
     }
 }
