@@ -7,63 +7,81 @@
 
 import SwiftUI
 
-struct LoginView: View {
-    @ObservedObject
+public enum LoginRoute {
+    case signIn
+}
+
+struct LoginView<Destination: View>: View {
+    @StateObject
     var viewModel: LoginViewModel
     
+    @State
+    var onRoute: (LoginRoute) -> Destination
+    
+    init(
+        viewModel: LoginViewModel,
+        @ViewBuilder onRoute: @escaping (LoginRoute) -> Destination
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        _onRoute = State(wrappedValue: onRoute)
+    }
+    
     var body: some View {
-        ZStack {
-            Color("launchScreenBackground")
-            
-            Image("regularLogo")
-                .resizable()
-                .renderingMode(.original)
-                .aspectRatio(
-                    contentMode: .fit
-                )
-                .frame(
-                    width: 120,
-                    height: 30
-                )
-                .offset(
-                    x: 0,
-                    y: viewModel.state == .login ? -200 : 0
-                )
-                .animation(.spring())
-            
-            LoginTextFields(
-                viewModel: viewModel
-            )
-            
-            VStack {
-                Spacer()
-                Button(action: {
-                    viewModel.state = .login
-                }) {
-                    Text("Login")
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(10.0)
-                        .foregroundColor(.black)
-                        .padding()
-                }
+        NavigationView {
+            ZStack {
+                Color("launchScreenBackground")
                 
-                HStack {
-                    Text("Don't have an account?")
-                        .foregroundColor(.white)
+                Image("regularLogo")
+                    .resizable()
+                    .renderingMode(.original)
+                    .aspectRatio(
+                        contentMode: .fit
+                    )
+                    .frame(
+                        width: 120,
+                        height: 30
+                    )
+                    .offset(
+                        x: 0,
+                        y: viewModel.state == .login ? -200 : 0
+                    )
+                    .animation(.spring())
+                
+                LoginTextFields(
+                    viewModel: viewModel
+                )
+                
+                VStack {
+                    Spacer()
                     Button(action: {
-                        
+                        viewModel.state = .login
                     }) {
-                        Text("Sign in")
+                        Text("Login")
+                            .frame(maxWidth: .infinity, maxHeight: 30)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(10.0)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                    .isHidden(viewModel.state == .login)
+                    
+                    HStack {
+                        Text("Don't have an account?")
                             .foregroundColor(.white)
-                            .bold()
+                        NavigationLink(
+                            destination: onRoute(.signIn)
+                        ) {
+                            Text("Sign in")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
                     }
                 }
+                .padding(.bottom, 60)
             }
-            .padding(.bottom, 60)
+            .ignoresSafeArea(.all, edges: .all)
         }
-        .ignoresSafeArea(.all, edges: .all)
     }
 }
 
@@ -114,12 +132,15 @@ struct LoginTextFields: View {
     }
 }
 
+#if DEBUG
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(
             viewModel: LoginViewModel(
-                coordinator: MainAppCoordinator()
-            )
+                coordinator: RootViewCoordinator()
+            ),
+            onRoute: { _ in }
         )
     }
 }
+#endif

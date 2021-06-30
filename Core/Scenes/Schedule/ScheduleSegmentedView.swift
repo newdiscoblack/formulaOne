@@ -100,7 +100,11 @@ struct RaceSchedule: View {
                 )
                     .hideRowSeparator(
                         insets: .defaultListRowInsets,
-                        background: Color.init(red: 30/255, green: 30/255, blue: 30/255)
+                        background: Color.init(
+                            red: 30/255,
+                            green: 30/255,
+                            blue: 30/255
+                        )
                     )
             }
         }
@@ -191,8 +195,18 @@ struct RaceSchedule: View {
                         LinearGradient(
                             gradient: Gradient(
                                 colors: [
-                                    Color.init(red: 30/255, green: 30/255, blue: 30/255),
-                                    Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.2)
+                                    Color.init(
+                                        red: 30/255,
+                                        green: 30/255,
+                                        blue: 30/255
+                                    ),
+                                    Color.init(
+                                        .sRGB,
+                                        red: 64/255,
+                                        green: 65/255,
+                                        blue: 81/255,
+                                        opacity: 0.2
+                                    )
                                 ]
                             ),
                             startPoint: .leading,

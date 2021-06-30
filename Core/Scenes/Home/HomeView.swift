@@ -16,38 +16,42 @@ struct HomeView: View {
     var viewModel: HomeViewModel
     
     var body: some View {
-        ZStack {
-            VStack {
-                SectionTitle(
-                    title: "Next"
-                )
-                UpcomingRace(
-                    mainTabViewCoordinator: mainTabViewCoordinator,
-                    viewModel: viewModel
-                )
-                .isRedacted(
-                    viewModel.nextRaceState == .empty
-                        || viewModel.nextRaceState == .error
-                )
-                SectionTitle(
-                    title: "Standings"
-                )
-                DriverRanking(
-                    mainTabViewCoordinator: mainTabViewCoordinator,
-                    viewModel: viewModel
-                )
-                .isRedacted(
-                    viewModel.standingsState == .empty
-                )
-                Spacer()
+        NavigationView {
+            ZStack {
+                VStack {
+                    SectionTitle(
+                        title: "Next"
+                    )
+                    UpcomingRace(
+                        mainTabViewCoordinator: mainTabViewCoordinator,
+                        viewModel: viewModel
+                    )
+                    .isRedacted(
+                        viewModel.nextRaceState == .empty
+                            || viewModel.nextRaceState == .error
+                    )
+                    SectionTitle(
+                        title: "Standings"
+                    )
+                    DriverRanking(
+                        mainTabViewCoordinator: mainTabViewCoordinator,
+                        viewModel: viewModel
+                    )
+                    .isRedacted(
+                        viewModel.standingsState == .empty
+                    )
+                    Spacer()
+                }
+                .modifier(DefaultViewStyleModifier())
+                
+                if viewModel.standingsState == .empty {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .red))
+                        .scaleEffect(2)
+                }
             }
-            .modifier(DefaultViewStyleModifier())
-            
-            if viewModel.standingsState == .empty {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .red))
-                    .scaleEffect(2)
-            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }
@@ -301,7 +305,7 @@ struct DriverCell: View {
     }
     
     private struct Position: View {
-        var position: String
+        let position: String
         
         var body: some View {
             HStack {
@@ -316,12 +320,12 @@ struct DriverCell: View {
     }
     
     private struct DriverDetails: View {
-        var nationality: String
-        var points: String
-        var name: String
-        var surname: String
-        var constructor: String
-        var flagProvider: FlagProviding
+        let nationality: String
+        let points: String
+        let name: String
+        let surname: String
+        let constructor: String
+        let flagProvider: FlagProviding
 
         var body: some View {
             Text(constructor)
@@ -356,7 +360,13 @@ struct DriverCell: View {
                     gradient: Gradient(
                         colors: [
                             .black,
-                            Color.init(.sRGB, red: 64/255, green: 65/255, blue: 81/255, opacity: 0.7)
+                            Color.init(
+                                .sRGB,
+                                red: 64/255,
+                                green: 65/255,
+                                blue: 81/255,
+                                opacity: 0.7
+                            )
                         ]
                     ),
                     startPoint: .bottom,

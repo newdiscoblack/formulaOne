@@ -71,9 +71,9 @@
 		E712C293266E442200568C79 /* abseil.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E712C28D266E441C00568C79 /* abseil.xcframework */; };
 		E712C294266E442200568C79 /* gRPC-C++.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E712C28E266E442100568C79 /* gRPC-C++.xcframework */; };
 		E712C296266E475600568C79 /* FirebaseAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712C295266E475600568C79 /* FirebaseAuthorizer.swift */; };
-		E7399FAB266F92D9002A5D67 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FAA266F92D9002A5D67 /* OnboardingView.swift */; };
+		E7399FAB266F92D9002A5D67 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FAA266F92D9002A5D67 /* RootView.swift */; };
 		E7399FAD266F93E9002A5D67 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FAC266F93E9002A5D67 /* LoginView.swift */; };
-		E7399FB0266FA3E0002A5D67 /* OnboardingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FAF266FA3E0002A5D67 /* OnboardingViewCoordinator.swift */; };
+		E7399FB0266FA3E0002A5D67 /* RootViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FAF266FA3E0002A5D67 /* RootViewCoordinator.swift */; };
 		E7399FB2266FA5E9002A5D67 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7399FB1266FA5E9002A5D67 /* LoginViewModel.swift */; };
 		E78500B52670A75300E497FA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78500B42670A75300E497FA /* SettingsViewModel.swift */; };
 		E78933CE2667A0E100941201 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78933CD2667A0E100941201 /* RoundedCorners.swift */; };
@@ -271,9 +271,9 @@
 		E712C28D266E441C00568C79 /* abseil.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = abseil.xcframework; sourceTree = "<group>"; };
 		E712C28E266E442100568C79 /* gRPC-C++.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "gRPC-C++.xcframework"; sourceTree = "<group>"; };
 		E712C295266E475600568C79 /* FirebaseAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthorizer.swift; sourceTree = "<group>"; };
-		E7399FAA266F92D9002A5D67 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		E7399FAA266F92D9002A5D67 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E7399FAC266F93E9002A5D67 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		E7399FAF266FA3E0002A5D67 /* OnboardingViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewCoordinator.swift; sourceTree = "<group>"; };
+		E7399FAF266FA3E0002A5D67 /* RootViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewCoordinator.swift; sourceTree = "<group>"; };
 		E7399FB1266FA5E9002A5D67 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E78500B42670A75300E497FA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		E78933CD2667A0E100941201 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
@@ -447,7 +447,7 @@
 		6354406498F1C1A2A0B30277 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				E7399FAE266FA3C1002A5D67 /* Onboarding */,
+				E7399FAE266FA3C1002A5D67 /* Root */,
 				E7399FA9266F92D1002A5D67 /* Login */,
 				E7E838DB266A57040056A971 /* Settings */,
 				0F96099A212B7C8EED671A5C /* Home */,
@@ -619,13 +619,13 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		E7399FAE266FA3C1002A5D67 /* Onboarding */ = {
+		E7399FAE266FA3C1002A5D67 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				E7399FAA266F92D9002A5D67 /* OnboardingView.swift */,
-				E7399FAF266FA3E0002A5D67 /* OnboardingViewCoordinator.swift */,
+				E7399FAA266F92D9002A5D67 /* RootView.swift */,
+				E7399FAF266FA3E0002A5D67 /* RootViewCoordinator.swift */,
 			);
-			path = Onboarding;
+			path = Root;
 			sourceTree = "<group>";
 		};
 		E7E838DB266A57040056A971 /* Settings */ = {
@@ -951,7 +951,7 @@
 				96ED6C07CF95175518EAE437 /* CarProvider.swift in Sources */,
 				34DFBF7615ADE10DE5549ECE /* DateFormatter.swift in Sources */,
 				68C834BA6B818D77016E89C9 /* DriverCellViewModel.swift in Sources */,
-				E7399FB0266FA3E0002A5D67 /* OnboardingViewCoordinator.swift in Sources */,
+				E7399FB0266FA3E0002A5D67 /* RootViewCoordinator.swift in Sources */,
 				B02327E11F9CF965285FB77B /* FlagProvider.swift in Sources */,
 				E7E838DD266A57190056A971 /* SettingsView.swift in Sources */,
 				40E57B9E0C2AC680A1976D52 /* HomeView.swift in Sources */,
@@ -960,7 +960,7 @@
 				E7E838DA266A36E40056A971 /* LaunchScreen.swift in Sources */,
 				A25EB578E07D90609A2E23AB /* MainTabViewCoordinator.swift in Sources */,
 				5FC682D3325CFDCED1BBE134 /* ScheduleSegmentedView.swift in Sources */,
-				E7399FAB266F92D9002A5D67 /* OnboardingView.swift in Sources */,
+				E7399FAB266F92D9002A5D67 /* RootView.swift in Sources */,
 				048FAED73839D25ED8BFD2E4 /* ScheduleSegmentedViewModel.swift in Sources */,
 				E8FFF942AA36751E1410186A /* SectionTitle.swift in Sources */,
 				95E4CD10EDC90C810E92E0BF /* StandingsView.swift in Sources */,

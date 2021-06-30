@@ -71,7 +71,7 @@ class ScheduleSegmentedViewModel: ObservableObject {
         let currentDate = dependencies.dateProvider.today()
         var upcomingRace: (index: Int, race: Race)?
         
-        sortedSchedule.enumerated().forEach { index, race in
+        sortedSchedule.enumerated().forEach { [weak self] index, race in
             if upcomingRace == nil {
                 upcomingRace = (index, race)
             }
@@ -83,8 +83,8 @@ class ScheduleSegmentedViewModel: ObservableObject {
             if currentDate > upcomingRaceDate {
                 let nextRaceIndex = sortedSchedule.index(after: index)
                 upcomingRace = (nextRaceIndex, sortedSchedule[nextRaceIndex])
-                self.pastSchedule = Array(schedule[0...index])
-                self.upcomingSchedule = Array(schedule[nextRaceIndex...])
+                self?.pastSchedule = Array(schedule[0...index])
+                self?.upcomingSchedule = Array(schedule[nextRaceIndex...])
             }
         }
     }

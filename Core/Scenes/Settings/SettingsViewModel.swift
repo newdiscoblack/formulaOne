@@ -13,17 +13,24 @@ class SettingsViewModel: ObservableObject {
     var dependencies: AppDependenciesProtocol
     
     @ObservedObject
-    var mainAppCoordinator: MainAppCoordinator
+    var rootViewCoordinator: RootViewCoordinator
+    
+    @Published
+    var availableSettings: [SettingsOption] = []
     
     private var cancellables = Set<AnyCancellable>()
     
     public init(
-        mainAppCoordinator: MainAppCoordinator
+        rootViewCoordinator: RootViewCoordinator
     ) {
-        self.mainAppCoordinator = mainAppCoordinator
+        _rootViewCoordinator = ObservedObject(wrappedValue: rootViewCoordinator)
+        self.availableSettings = [
+            .profile,
+            .logout(logout)
+        ]
     }
     
-    public func logOut() {
+    private func logout() {
         dependencies
             .userProvider
             .signOut()
@@ -32,12 +39,46 @@ class SettingsViewModel: ObservableObject {
                 case let .failure(error):
                     print(error.localizedDescription)
                 case .finished:
+                    print("Logged out succesfully.")
                     break
                 }
             } receiveValue: { [weak self] _ in
-                self?.mainAppCoordinator.selectedTab = .login
-                print("Logged out")
+                self?.rootViewCoordinator.selectedScreen = .login
             }
             .store(in: &cancellables)
+    }
+}
+
+enum SettingsOption {
+    typealias Action = () -> Void
+    
+    case profile
+    case logout(Action)
+    
+    var icon: Image {
+        switch self {
+        case .profile:
+            return Image(systemName: "person")
+        case .logout:
+            return Image(systemName: "power")
+        }
+    }
+    
+    var title: Text {
+        switch self {
+        case .profile:
+            return Text("Profile")
+        case .logout:
+            return Text("Logout")
+        }
+    }
+    
+    var action: () -> Void {
+        switch self {
+        case .logout(let action):
+            return action
+        default:
+            return {}
+        }
     }
 }

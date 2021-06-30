@@ -11,14 +11,8 @@ public struct MainTabView: View {
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
     
-    @ObservedObject
-    private var viewModel: MainTabViewModel
-    
-    public init(
-        viewModel: MainTabViewModel
-    ) {
-        self.viewModel = viewModel
-    }
+    @StateObject
+    var viewModel: MainTabViewModel
     
     public var body: some View {
         VStack {
@@ -42,8 +36,16 @@ public struct MainTabView: View {
                 case MainTab.settings:
                     SettingsView(
                         viewModel: SettingsViewModel(
-                            mainAppCoordinator: viewModel.mainAppCoordinator
-                        )
+                            rootViewCoordinator: viewModel.rootViewCoordinator
+                        ),
+                        onRoute: { route in
+                            switch route {
+                            case .profile:
+                                Text("profile")
+                            case .logout:
+                                EmptyView()
+                            }
+                        }
                     )
                 }
                 Spacer()
@@ -67,7 +69,7 @@ struct HomeTabView_PreviewContainer: View {
     var body: some View {
         MainTabView(
             viewModel: MainTabViewModel(
-                mainAppCoordinator: MainAppCoordinator(),
+                rootViewCoordinator: RootViewCoordinator(),
                 mainTabViewCoordinator: MainTabViewCoordinator()
             )
         )

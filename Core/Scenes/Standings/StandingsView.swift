@@ -45,7 +45,7 @@ struct DriverStandingsList: View {
     @ObservedObject
     var coordinator: MainTabViewCoordinator
     
-    @StateObject
+    @ObservedObject
     var viewModel: StandingsViewModel
     
     var body: some View {
@@ -54,34 +54,39 @@ struct DriverStandingsList: View {
             .details
             .first?
             .drivers ?? []
-        List {
-            ForEach(
-                standings.indices,
-                id: \.self
-            ) { driver in
-                StandingsDriverCell(
-                    viewModel: DriverCellViewModel.populateWith(standings[driver]),
-                    dependencies: viewModel.dependencies
-                )
-                .hideRowSeparator(
-                    insets: .defaultListRowInsets,
-                    background: Color.init(red: 30/255, green: 30/255, blue: 30/255)
-                )
+        NavigationView {
+            List {
+                ForEach(
+                    standings.indices,
+                    id: \.self
+                ) { driver in
+                    StandingsDriverCell(
+                        viewModel: DriverCellViewModel.populateWith(standings[driver]),
+                        dependencies: viewModel.dependencies
+                    )
+                    .hideRowSeparator(
+                        insets: .defaultListRowInsets,
+                        background: Color.init(red: 30/255, green: 30/255, blue: 30/255)
+                    )
+                }
             }
+            .simultaneousGesture(
+                DragGesture().onChanged { gesture in
+                    if gesture.translation.height > 0 {
+                        coordinator.shouldDisplayTabBar = true
+                      } else {
+                        coordinator.shouldDisplayTabBar = false
+                      }
+                }
+            )
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .modifier(DefaultViewStyleModifier())
         }
         .onAppear {
             UITableView.appearance().backgroundColor = .clear
             UITableView.appearance().showsVerticalScrollIndicator = false
         }
-        .simultaneousGesture(
-            DragGesture().onChanged { gesture in
-                if gesture.translation.height > 0 {
-                    coordinator.shouldDisplayTabBar = true
-                  } else {
-                    coordinator.shouldDisplayTabBar = false
-                  }
-            }
-        )
     }
 }
 

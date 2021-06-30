@@ -14,19 +14,15 @@ struct FormulaOneApp: App {
     var mainTabViewCoordinator: MainTabViewCoordinator = MainTabViewCoordinator()
     
     @StateObject
-    var mainAppCoordinator: MainAppCoordinator = MainAppCoordinator()
+    var rootViewCoordinator: RootViewCoordinator = RootViewCoordinator()
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                OnboardingView(
-                    mainAppCoordinator: mainAppCoordinator,
+                RootView(
+                    rootViewCoordinator: rootViewCoordinator,
                     mainTabViewCoordinator: mainTabViewCoordinator
                 )
-//                MainTabView(
-//                    coordinator: mainTabViewCoordinator
-//                )
-//                LaunchScreen()
             } 
         }
     }

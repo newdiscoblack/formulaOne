@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  RootView.swift
 //  Core
 //
 //  Created by Kacper Jagiełło on 08/06/2021.
@@ -7,35 +7,44 @@
 
 import SwiftUI
 
-public struct OnboardingView: View {
+public struct RootView: View {
     @ObservedObject
-    var mainAppCoordinator: MainAppCoordinator
+    var rootViewCoordinator: RootViewCoordinator
     
     @ObservedObject
     var mainTabViewCoordinator: MainTabViewCoordinator
     
     public init(
-        mainAppCoordinator: MainAppCoordinator,
+        rootViewCoordinator: RootViewCoordinator,
         mainTabViewCoordinator: MainTabViewCoordinator
     ) {
-        self.mainAppCoordinator = mainAppCoordinator
-        self.mainTabViewCoordinator = mainTabViewCoordinator
+        _rootViewCoordinator = ObservedObject(
+            wrappedValue: rootViewCoordinator
+        )
+        _mainTabViewCoordinator = ObservedObject(
+            wrappedValue: mainTabViewCoordinator
+        )
     }
     
     public var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
-                switch mainAppCoordinator.selectedTab {
+                switch rootViewCoordinator.selectedScreen {
                 case .login:
                     LoginView(
                         viewModel: LoginViewModel(
-                            coordinator: mainAppCoordinator
-                        )
+                            coordinator: rootViewCoordinator
+                        ), onRoute: { route in
+                            switch route {
+                            case .signIn:
+                                Text("Sign in view.")
+                            }
+                        }
                     )
                 case .mainTabView:
                     MainTabView(
                         viewModel: MainTabViewModel(
-                            mainAppCoordinator: mainAppCoordinator,
+                            rootViewCoordinator: rootViewCoordinator,
                             mainTabViewCoordinator: mainTabViewCoordinator
                         )
                     )
@@ -47,10 +56,10 @@ public struct OnboardingView: View {
     }
 }
 
-struct OnboardingView_Previews: PreviewProvider {
+struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(
-            mainAppCoordinator: MainAppCoordinator(),
+        RootView(
+            rootViewCoordinator: RootViewCoordinator(),
             mainTabViewCoordinator: MainTabViewCoordinator()
         )
     }

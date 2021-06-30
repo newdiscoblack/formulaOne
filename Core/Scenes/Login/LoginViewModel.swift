@@ -17,7 +17,7 @@ class LoginViewModel: ObservableObject {
     }
     
     @ObservedObject
-    var coordinator: MainAppCoordinator
+    var coordinator: RootViewCoordinator
     
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
@@ -34,7 +34,7 @@ class LoginViewModel: ObservableObject {
     var password: String = ""
     
     public init(
-        coordinator: MainAppCoordinator
+        coordinator: RootViewCoordinator
     ) {
         self.coordinator = coordinator
     }
@@ -55,7 +55,7 @@ class LoginViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] _ in
                 self?.state = .loggedIn
-                self?.coordinator.selectedTab = .mainTabView
+                self?.coordinator.selectedScreen = .mainTabView
             }
             .store(in: &cancellables)
     }

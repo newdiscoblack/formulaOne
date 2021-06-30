@@ -9,7 +9,7 @@ import SwiftUI
 
 public class MainTabViewModel: ObservableObject {
     @ObservedObject
-    var mainAppCoordinator: MainAppCoordinator
+    var rootViewCoordinator: RootViewCoordinator
     
     @ObservedObject
     var mainTabViewCoordinator: MainTabViewCoordinator
@@ -18,10 +18,10 @@ public class MainTabViewModel: ObservableObject {
     var dependencies: AppDependenciesProtocol
     
     public init(
-        mainAppCoordinator: MainAppCoordinator,
+        rootViewCoordinator: RootViewCoordinator,
         mainTabViewCoordinator: MainTabViewCoordinator
     ) {
-        self.mainAppCoordinator = mainAppCoordinator
+        self.rootViewCoordinator = rootViewCoordinator
         self.mainTabViewCoordinator = mainTabViewCoordinator
     }
 }
