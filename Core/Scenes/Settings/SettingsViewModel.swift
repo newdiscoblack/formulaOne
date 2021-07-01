@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-class SettingsViewModel: ObservableObject {
+class SettingsViewModel: ObservableObject, Navigating {
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
     
@@ -17,6 +17,14 @@ class SettingsViewModel: ObservableObject {
     
     @Published
     var availableSettings: [SettingsOption] = []
+    
+    private let navigationSubject = PassthroughSubject<NavigationDirection, Never>()
+    
+    var navigationPublisher: AnyPublisher<NavigationDirection, Never> {
+        navigationSubject
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -28,6 +36,15 @@ class SettingsViewModel: ObservableObject {
             .profile,
             .logout(logout)
         ]
+    }
+    
+    public func navigate(to destination: NavigationDestination) {
+        navigationSubject.send(
+            .navigate(
+                to: destination,
+                style: .push
+            )
+        )
     }
     
     private func logout() {
@@ -49,8 +66,8 @@ class SettingsViewModel: ObservableObject {
     }
 }
 
-enum SettingsOption {
-    typealias Action = () -> Void
+public enum SettingsOption: NavigationDestination {
+    public typealias Action = () -> Void
     
     case profile
     case logout(Action)

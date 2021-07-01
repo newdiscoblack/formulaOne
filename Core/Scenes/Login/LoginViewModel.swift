@@ -49,6 +49,11 @@ class LoginViewModel: ObservableObject, Navigating {
         coordinator: RootViewCoordinator
     ) {
         self.coordinator = coordinator
+        
+        #if DEBUG
+        username = "test@test.com"
+        password = "test123"
+        #endif
     }
     
     public func logIn() {

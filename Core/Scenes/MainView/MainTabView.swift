@@ -37,15 +37,7 @@ public struct MainTabView: View {
                     SettingsView(
                         viewModel: SettingsViewModel(
                             rootViewCoordinator: viewModel.rootViewCoordinator
-                        ),
-                        onRoute: { route in
-                            switch route {
-                            case .profile:
-                                Text("profile")
-                            case .logout:
-                                EmptyView()
-                            }
-                        }
+                        )
                     )
                 }
                 Spacer()

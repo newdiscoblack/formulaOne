@@ -51,6 +51,7 @@ public struct RootView: View {
     }
 }
 
+#if DEBUG
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(
@@ -59,3 +60,4 @@ struct RootView_Previews: PreviewProvider {
         )
     }
 }
+#endif

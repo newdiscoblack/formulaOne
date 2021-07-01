@@ -8,19 +8,14 @@
 import SwiftUI
 import Utilities
 
-struct SettingsView<Destination: View>: View {
+struct SettingsView: View {
     @StateObject
     var viewModel: SettingsViewModel
     
-    @State
-    var onRoute: (SettingsOption) -> Destination
-    
     init(
-        viewModel: SettingsViewModel,
-        @ViewBuilder onRoute: @escaping (SettingsOption) -> Destination
+        viewModel: SettingsViewModel
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        _onRoute = State(wrappedValue: onRoute)
     }
     
     var body: some View {
@@ -31,8 +26,8 @@ struct SettingsView<Destination: View>: View {
                 )
                 ForEach(viewModel.availableSettings.indices) { setting in
                     SettingsButton(
-                        setting: viewModel.availableSettings[setting],
-                        onRoute: onRoute
+                        viewModel: viewModel,
+                        setting: viewModel.availableSettings[setting]
                     )
                 }
                 Spacer()
@@ -40,23 +35,22 @@ struct SettingsView<Destination: View>: View {
             .navigationBarTitle("Settings")
             .navigationBarHidden(true)
             .modifier(DefaultViewStyleModifier())
+            .handleNavigation(viewModel.navigationPublisher)
         }
     }
 }
 
-struct SettingsButton<Destination: View>: View {
-    @State
-    private var willPresent = false
+struct SettingsButton: View {
+    @ObservedObject
+    var viewModel: SettingsViewModel
     
     let setting: SettingsOption
-    
-    var onRoute: (SettingsOption) -> Destination
-    
+
     var body: some View {
-        NavigationLink(
-            destination: onRoute(setting),
-            isActive: $willPresent
-        ) {
+        Button(action: {
+            setting.action()
+            viewModel.navigate(to: setting)
+        }) {
             HStack {
                 setting.icon
                 setting.title
@@ -67,10 +61,6 @@ struct SettingsButton<Destination: View>: View {
             )
             .foregroundColor(.white)
             .padding()
-            .onTapGesture {
-                setting.action()
-                willPresent = true
-            }
         }
     }
 }
@@ -81,8 +71,7 @@ struct SettingsView_PreviewContainer: View {
         SettingsView(
             viewModel: SettingsViewModel(
                 rootViewCoordinator: RootViewCoordinator()
-            ),
-            onRoute: { _ in }
+            )
         )
     }
 }
