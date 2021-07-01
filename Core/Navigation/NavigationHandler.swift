@@ -18,11 +18,12 @@ struct NavigationHandler: ViewModifier {
     @State
     private var isPresenting = false
     
+    @Environment(\.appDependencies)
+    var dependencies: AppDependenciesProtocol
+    
     @Environment(\.presentationMode)
     private var presentation
-    
-    let viewFactory: ViewFactory = .init()
-    
+
     let navigationPublisher: AnyPublisher<NavigationDirection, Never>
     
     func body(content: Content) -> some View {
@@ -59,7 +60,9 @@ struct NavigationHandler: ViewModifier {
     @ViewBuilder
     private func buildDestination() -> some View {
         if let destination = destination {
-            viewFactory.destination(destination)
+            dependencies
+                .viewFactory
+                .buildDestination(destination)
         } else {
             EmptyView()
         }

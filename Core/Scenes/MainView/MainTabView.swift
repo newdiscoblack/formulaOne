@@ -19,36 +19,35 @@ public struct MainTabView: View {
             ZStack(alignment: .bottom) {
                 switch viewModel.mainTabViewCoordinator.selectedTab {
                 case MainTab.home:
-                    HomeView(
-                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
-                        viewModel: HomeViewModel()
-                    )
-                case MainTab.schedule:
-                    ScheduleSegmentedView(
-                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
-                        viewModel: ScheduleSegmentedViewModel()
-                    )
-                case MainTab.standings:
-                    StandingsView(
-                        mainTabViewCoordinator: viewModel.mainTabViewCoordinator,
-                        viewModel: StandingsViewModel()
-                    )
-                case MainTab.settings:
-                    SettingsView(
-                        viewModel: SettingsViewModel(
-                            rootViewCoordinator: viewModel.rootViewCoordinator
+                    dependencies
+                        .viewFactory
+                        .buildHomeView(
+                            tabCoordinator: viewModel.mainTabViewCoordinator
                         )
-                    )
+                case MainTab.schedule:
+                    dependencies
+                        .viewFactory
+                        .buildRaceScheduleView(
+                            tabCoordinator: viewModel.mainTabViewCoordinator
+                        )
+                case MainTab.standings:
+                    dependencies
+                        .viewFactory
+                        .buildStandingsView(
+                            tabCoordinator: viewModel.mainTabViewCoordinator
+                        )
+                case MainTab.settings:
+                    dependencies
+                        .viewFactory
+                        .buildSettingsView(
+                            rootCoordinator: viewModel.rootViewCoordinator
+                        )
                 }
                 Spacer()
-                TabBar(coordinator: viewModel.mainTabViewCoordinator)
-                    .alignmentGuide(.bottom) { dimension in
-                        dimension[.bottom]
-                    }
-                    .isHidden(
-                        !viewModel
-                            .mainTabViewCoordinator
-                            .shouldDisplayTabBar
+                dependencies
+                    .viewFactory
+                    .buildTabBar(
+                        tabCoordinator: viewModel.mainTabViewCoordinator
                     )
             }
         }

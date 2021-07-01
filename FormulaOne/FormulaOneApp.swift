@@ -10,6 +10,9 @@ import SwiftUI
 
 @main
 struct FormulaOneApp: App {
+    @Environment(\.appDependencies)
+    var dependencies: AppDependenciesProtocol
+    
     @StateObject
     var mainTabViewCoordinator: MainTabViewCoordinator = MainTabViewCoordinator()
     
@@ -19,10 +22,22 @@ struct FormulaOneApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                RootView(
-                    rootViewCoordinator: rootViewCoordinator,
-                    mainTabViewCoordinator: mainTabViewCoordinator
-                )
+                dependencies
+                    .viewFactory
+                    .buildRootView(
+                        rootCoordinator: rootViewCoordinator,
+                        tabCoordinator: mainTabViewCoordinator
+                    )
+                VStack {
+                    Text("Error: Something went wrong :(")
+                        .frame(maxWidth: .infinity, maxHeight: 80)
+                        .foregroundColor(.white)
+                        .background(
+                            Color.red
+                        )
+                    Spacer()
+                }
+                .isHidden(!rootViewCoordinator.isPresentingError)
             } 
         }
     }

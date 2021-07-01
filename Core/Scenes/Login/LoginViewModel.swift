@@ -81,7 +81,7 @@ class LoginViewModel: ObservableObject, Navigating {
         navigationSubject.send(
             .navigate(
                 to: LoginDestination.signIn,
-                style: .push
+                style: .present
             )
         )
     }

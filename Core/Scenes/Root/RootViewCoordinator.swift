@@ -15,7 +15,10 @@ public enum RootScreen {
 
 public class RootViewCoordinator: ObservableObject {
     @Published
-    var selectedScreen: RootScreen = .login
+    public var selectedScreen: RootScreen = .login
+    
+    @Published
+    public var isPresentingError: Bool = false
     
     public init() { }
 }

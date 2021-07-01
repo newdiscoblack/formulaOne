@@ -15,6 +15,7 @@ public struct AppDependencies: AppDependenciesProtocol {
     public var userProvider: UserProviding
     public var httpService: HttpServing
     public var apiResources: ApiResources
+    public var viewFactory: ViewFactory
     public var flagProvider: FlagProviding
     public var carProvider: CarProviding
     public var dateProvider: DateProviding
@@ -25,6 +26,7 @@ public struct AppDependencies: AppDependenciesProtocol {
         self.userProvider = UserProvider()
         self.httpService = HttpService()
         self.apiResources = AppApiResources()
+        self.viewFactory = ViewFactory()
         self.flagProvider = FlagProvider()
         self.carProvider = CarProvider()
         self.dateProvider = DateProvider()
@@ -37,6 +39,7 @@ public protocol AppDependenciesProtocol:
     HasUserProvider,
     HasHttpService,
     HasApiResources,
+    HasViewFactory,
     HasFlagProvider,
     HasCarProvider,
     HasDateProvider { }
@@ -48,7 +51,7 @@ struct AppDependenciesKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    var appDependencies: AppDependenciesProtocol {
+    public var appDependencies: AppDependenciesProtocol {
         get {
             self[AppDependenciesKey.self]
         }
