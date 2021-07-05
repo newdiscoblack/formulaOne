@@ -60,8 +60,8 @@ struct HomeTabView_PreviewContainer: View {
     var body: some View {
         MainTabView(
             viewModel: MainTabViewModel(
-                rootViewCoordinator: RootViewCoordinator(),
-                mainTabViewCoordinator: MainTabViewCoordinator()
+                rootViewCoordinator: RootViewCoordinator.shared,
+                mainTabViewCoordinator: MainTabViewCoordinator.shared
             )
         )
     }

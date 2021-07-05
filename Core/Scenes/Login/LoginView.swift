@@ -133,7 +133,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(
             viewModel: LoginViewModel(
-                coordinator: RootViewCoordinator()
+                coordinator: RootViewCoordinator.shared
             )
         )
     }

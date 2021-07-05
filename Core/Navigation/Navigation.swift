@@ -28,8 +28,3 @@ public protocol NavigationDestination {
      NavigationDestination, but they can be separated into different types.
  */
 }
-
-enum TestDestination: NavigationDestination {
-    case firstView
-    case secondView
-}

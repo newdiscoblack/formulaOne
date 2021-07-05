@@ -223,7 +223,7 @@ struct RaceSchedule: View {
 struct ScheduleView_PreviewContainer: View {
     var body: some View {
         ScheduleSegmentedView(
-            mainTabViewCoordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator.shared,
             viewModel: ScheduleSegmentedViewModel()
         )
     }

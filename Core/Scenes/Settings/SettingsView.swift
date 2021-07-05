@@ -70,7 +70,7 @@ struct SettingsView_PreviewContainer: View {
     var body: some View {
         SettingsView(
             viewModel: SettingsViewModel(
-                rootViewCoordinator: RootViewCoordinator()
+                rootViewCoordinator: RootViewCoordinator.shared
             )
         )
     }

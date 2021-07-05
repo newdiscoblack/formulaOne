@@ -11,7 +11,7 @@ import SwiftUI
 class SettingsViewModel: ObservableObject, Navigating {
     @Environment(\.appDependencies)
     var dependencies: AppDependenciesProtocol
-    
+
     @ObservedObject
     var rootViewCoordinator: RootViewCoordinator
     
@@ -51,11 +51,11 @@ class SettingsViewModel: ObservableObject, Navigating {
         dependencies
             .userProvider
             .signOut()
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case let .failure(error):
-                    print(error.localizedDescription)
-                case .finished:
+                    self?.dependencies.errorPresenter.present(error)
+                case .finished:                    
                     print("Logged out succesfully.")
                     break
                 }

@@ -5,7 +5,7 @@
 //  Created by Kacper Jagiełło on 08/06/2021.
 //
 
-import Foundation
+import Combine
 import SwiftUI
 
 public enum RootScreen {
@@ -16,10 +16,8 @@ public enum RootScreen {
 public class RootViewCoordinator: ObservableObject {
     @Published
     public var selectedScreen: RootScreen = .login
-    
-    @Published
-    public var isPresentingError: Bool = false
-    
-    public init() { }
-}
 
+    public static let shared: RootViewCoordinator = RootViewCoordinator()
+    
+    private init() { }
+}

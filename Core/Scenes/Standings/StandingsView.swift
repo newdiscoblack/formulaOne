@@ -201,7 +201,7 @@ struct StandingsDriverCell: View {
 struct StandingsView_PreviewContainer: View {
     var body: some View {
         StandingsView(
-            mainTabViewCoordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator.shared,
             viewModel: StandingsViewModel()
         )
     }

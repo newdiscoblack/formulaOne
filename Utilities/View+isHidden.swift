@@ -8,7 +8,8 @@
 import SwiftUI
 
 extension View {
-    @ViewBuilder public func isHidden(_ hidden: Bool, remove: Bool = false) -> some View {
+    @ViewBuilder
+    public func isHidden(_ hidden: Bool, remove: Bool = false) -> some View {
         if hidden {
             if !remove {
                 self.hidden()
@@ -18,3 +19,4 @@ extension View {
         }
     }
 }
+

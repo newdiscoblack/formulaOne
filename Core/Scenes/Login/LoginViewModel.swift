@@ -44,7 +44,7 @@ class LoginViewModel: ObservableObject, Navigating {
     
     @Published
     var password: String = ""
-    
+
     public init(
         coordinator: RootViewCoordinator
     ) {
@@ -63,10 +63,10 @@ class LoginViewModel: ObservableObject, Navigating {
                 withEmail: username,
                 password: password
             )
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
-                case let .failure(error):
-                    print(error.localizedDescription)
+                case .failure(let error):
+                    self?.dependencies.errorPresenter.present(error)
                 case .finished:
                     break
                 }
@@ -76,12 +76,12 @@ class LoginViewModel: ObservableObject, Navigating {
             }
             .store(in: &cancellables)
     }
-    
+
     public func signIn() {
         navigationSubject.send(
             .navigate(
                 to: LoginDestination.signIn,
-                style: .present
+                style: .push
             )
         )
     }

@@ -381,7 +381,7 @@ struct DriverCell: View {
 struct CurrentSeasonView_PreviewContainer: View {
     var body: some View {
         HomeView(
-            mainTabViewCoordinator: MainTabViewCoordinator(),
+            mainTabViewCoordinator: MainTabViewCoordinator.shared,
             viewModel: HomeViewModel()
         )
     }

@@ -21,5 +21,7 @@ public class MainTabViewCoordinator: ObservableObject {
     @Published
     var shouldDisplayTabBar: Bool = true
     
-    public init() { }
+    public static let shared: MainTabViewCoordinator = MainTabViewCoordinator()
+    
+    private init() { }
 }
